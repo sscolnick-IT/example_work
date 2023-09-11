@@ -1,6 +1,16 @@
-# example_work
-Repositories containing examples and tutorials of some of my IT Projects
+This is my ansible repo of playbooks and for various services I have set up on my proxmox vitualization server.
 
-Interested in IT and DevOps I wanted to share some examples of work I have been doing and get some feedback from the world. 
+Roles/playbooks Ive written:
 
-Project topics include my work with ansible, gitlab, terraform, proxmox, bash scripting, python scripting and whatever else comes up that i've been working on. 
+    BIND local DNS server
+        Playbook for creating both primary/redundant DNS server
+        Automated changes via Gitlab CI/CD pipeline to push record changes
+
+    Stable diffusion AI image generation server - https://github.com/bes-dev/stable_diffusion.openvino
+        Playbook for installing Stable Diffusion and additional webserver for image display
+
+Upcoming roles and playbooks
+
+    gitlab runner for automating ansible changes
+    Stable diffusion with webUI - https://github.com/AUTOMATIC1111/stable-diffusion-webui
+
