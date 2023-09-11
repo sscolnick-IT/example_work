@@ -1,0 +1,26 @@
+
+$TTL 86400
+@ IN SOA dns-01.home.local. admin.home.local. (
+    2023062101 ;Serial
+    3600 ;Refresh
+    1800 ;Retry
+    604800 ;Expire
+    86400 ;Minimum TTL
+)
+
+;Name Server Information
+@ IN NS    dns-01.home.local.
+
+
+;IP for Name Server
+dns-01    IN A 192.168.0.97
+
+### The records below can be modified to change DNS information
+
+;A Record for IP address to Hostname
+web-stable-diff        IN A 192.168.2.14
+stable-diff            IN A 192.168.2.15
+dns-02                 IN A 192.168.2.18
+proxmox                IN A 192.168.2.19
+blog                   IN A 192.168.2.21
+gitlab-runner-01       IN A 192.168.2.28

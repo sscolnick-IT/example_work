@@ -1,0 +1,5 @@
+#handler will reboot named service (BIND) on rocky9 machine 
+- name: Reboot_named
+  ansible.builtin.service:
+    name: named
+    state: restarted

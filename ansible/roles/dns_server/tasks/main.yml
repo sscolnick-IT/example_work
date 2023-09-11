@@ -1,0 +1,83 @@
+# This task list will set up both my master and backup DNS servers for my local network. 
+# It will set them up with the correct configuration files.
+
+---
+- name: Install bind
+  ansible.builtin.yum:
+    name: bind
+    state: latest
+
+- name: Enable service named
+  ansible.builtin.service:
+    name: named
+    enabled: true
+
+- name: Enable dns firewall
+  ansible.posix.firewalld:
+    service: dns
+    permanent: true
+    state: enabled
+    immediate: true
+
+- name: Set up dns-01 as master
+  when: ansible_facts['hostname'] == "dns-01"
+  block:
+  - name: Copy named.conf
+    ansible.builtin.template:
+      src: named.conf
+      dest: /etc/named.conf
+      mode: '0640'
+      owner: root
+      group: named
+    notify: Reboot_named
+    when: ansible_facts['hostname'] == "dns-01"
+
+  - name: Copy record
+    ansible.builtin.template:
+      src: home.local.db
+      dest: /var/named/
+      mode: '0644'
+      owner: root
+      group: named
+    notify: Reboot_named
+    when: ansible_facts['hostname'] == "dns-01"
+
+  - name: Copy reverse record
+    ansible.builtin.template:
+      src: home.local.rev
+      dest: /var/named/
+      mode: '0644'
+      owner: root
+      group: named
+    notify: Reboot_named
+    when: ansible_facts['hostname'] == "dns-01"
+
+- name: Set up dns-02 as slave
+  when: ansible_facts['hostname'] == "dns-02"
+  block:
+  - name: Copy named.conf to slave
+    ansible.builtin.template:
+      src: slave.named.conf
+      dest: /etc/named.conf
+      mode: '0644'
+      owner: root
+      group: named
+    notify: Reboot_named
+
+  - name: Copy named.rfc1912
+    ansible.builtin.template:
+      src: named.rfc1912.zones
+      dest: /etc/named.rfc1912.zones
+      mode: '0640'
+      owner: root
+      group: named
+    notify: Reboot_named
+
+  - name: Copy named.rfc1912
+    ansible.builtin.template:
+      src: slave.resolve.conf
+      dest: /etc/resolve.conf
+      mode: '0640'
+      owner: root
+      group: named
+    notify: Reboot_named

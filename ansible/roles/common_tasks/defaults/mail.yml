@@ -1,0 +1,13 @@
+#list of default variables for common_tasks roles
+
+custom_packages_installed:
+  - name: 'bash-completion'
+    state: 'latest'
+  - name: 'vim'
+    state: 'latest'
+  - name: 'bzip2'
+    state: latest
+  - name: 'tar'
+    state: latest
+
+selinux_state: enforcing

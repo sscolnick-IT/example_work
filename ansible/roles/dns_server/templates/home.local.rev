@@ -1,0 +1,23 @@
+$TTL 86400
+@ IN SOA local-dns.home.local. admin.home.local. (
+    2023062101 ;Serial
+    3600 ;Refresh
+    1800 ;Retry
+    604800 ;Expire
+    86400 ;Minimum TTL
+)
+;Name Server Information
+@ IN NS dns-01.home.local.
+
+
+;Reverse lookup for Name Server
+97 IN PTR dns-01.home.local.
+
+
+;PTR Record IP address to HostName
+14 IN PTR web-stable-diff.home.local
+15 IN PTR stable-diff.home.local
+18 IN PTR dns-02.home.local.
+99 IN PTR proxmox.home.local.
+21 IN PTR blog.home.local.
+28 IN PTR gitlab-runner-01.home.local.

@@ -1,0 +1,7 @@
+---
+- name: DNS server
+  hosts: dns_server
+  become: true
+  roles:
+    - { role: common_tasks }
+    - { role: dns_server }
