@@ -1,0 +1,9 @@
+newpassword: **ANSIBLE VAULT SECRET**
+
+users_info:
+  - username: 'ansible'
+    shell: /bin/bash
+    pub_key: **ANSIBLE VAULT SECRET** # noqa: yaml[line-length]
+  - username: 'user1'
+    shell: /bin/bash
+    pub_key: **ANSIBLE VAULT SECRET**
