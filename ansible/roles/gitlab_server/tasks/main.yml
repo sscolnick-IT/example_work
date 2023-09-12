@@ -1,0 +1,65 @@
+---
+- name: Gather the package facts
+  ansible.builtin.package_facts:
+    manager: auto
+- name: Enable https service in firewalld # noqa: args[module] loop-var-prefix[missing]
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+    immediate: true
+  loop: "{{ firewalld_services }}"
+- name: Install gitlab dependencies packages
+  ansible.builtin.yum:
+    name: "{{ install_packages }}"
+    state: latest
+- name: Add gitlab-ce repo
+  ansible.builtin.yum_repository:
+    name: gitlab_gitlab-ce
+    description: gitlab_gitlab-ce
+    file: gitlab_gitlab-ce
+    baseurl: https://packages.gitlab.com/gitlab/gitlab-ce/el/8/$basearch
+    repo_gpgcheck: true
+    gpgcheck: true
+    enabled: true
+    gpgkey:
+      - https://packages.gitlab.com/gitlab/gitlab-ce/gpgkey
+      - https://packages.gitlab.com/gitlab/gitlab-ce/gpgkey/gitlab-gitlab-ce-3D645A26AB9FBD22.pub.gpg
+    sslverify: true
+    sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    metadata_expire: 300
+
+- name: Add gitlab-ce-source repo
+  ansible.builtin.yum_repository:
+    name: gitlab_gitlab-ce-source
+    description: gitlab_gitlab-ce-source
+    file: gitlab_gitlab-ce
+    baseurl: https://packages.gitlab.com/gitlab/gitlab-ce/el/8/SRPMS
+    repo_gpgcheck: true
+    gpgcheck: true
+    enabled: true
+    gpgkey:
+      - https://packages.gitlab.com/gitlab/gitlab-ce/gpgkey
+      - https://packages.gitlab.com/gitlab/gitlab-ce/gpgkey/gitlab-gitlab-ce-3D645A26AB9FBD22.pub.gpg
+    sslverify: true
+    sslcacert: /etc/pki/tls/certs/ca-bundle.crt
+    metadata_expire: 300
+- name: Check whether a package called gitlab-ce is installed
+  ansible.builtin.debug:
+    msg: "{{ ansible_facts.packages['gitlab-ce'] }} version of gitlab are installed!"
+  when: "'gitlab-ce' in ansible_facts.packages"
+- name: Install gitlab-ce
+  ansible.builtin.dnf:
+    name: gitlab-ce
+    state: present
+  when: "'gitlab-ce' not in ansible_facts.packages"
+- name: Reconfigure GitLab
+  ansible.builtin.command: >
+    gitlab-ctl reconfigure
+    creates=/var/opt/gitlab/bootstrapped
+  failed_when: false
+- name: Ensure add URL to gitlab config file
+  ansible.builtin.lineinfile:
+    path: /etc/gitlab/gitlab.rb
+    regexp: '^external_url'
+    line: external_url 'http://gitlab-01.home.local'

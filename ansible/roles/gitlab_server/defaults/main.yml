@@ -1,0 +1,10 @@
+firewalld_services:
+  - http
+  - https
+
+install_packages:
+  - curl
+  - policycoreutils
+  - git
+  - python3-policycoreutils
+  - glibc-langpack-en

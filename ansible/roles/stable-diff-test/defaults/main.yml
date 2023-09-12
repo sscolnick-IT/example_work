@@ -1,0 +1,27 @@
+custom_packages_installed:
+  - name: 'bash-completion'
+    state: 'latest'
+  - name: 'vim'
+    state: 'latest'
+  - name: 'bzip2'
+    state: latest
+  - name: 'httpd'
+    state: absent
+  - name: 'tar'
+    state: latest
+  - name: 'python3.8-venv'
+    state: latest
+  - name: 'git'
+    state: latest
+  - name: 'npm'
+    state: latest
+
+img_gen_script_locations:
+  - dest: "/home/image-gen/stable_diffusion.openvino"
+    user: root
+    group: root
+  - dest: "/usr/local/bin"
+    user: root
+    group: root
+
+selinux_state: enforcing

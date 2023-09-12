@@ -1,0 +1,8 @@
+---
+- name: Stable-diffusion
+  hosts: stable-diffusion
+  become: true
+  roles:
+    - { role: common_tasks }
+    - { role: sshd }
+    - { role: stable-diff }

@@ -1,0 +1,53 @@
+---
+- name: Clone Stable Diffusion repository # noqa: latest[git]
+  ansible.builtin.git:
+    repo: https://github.com/bes-dev/stable_diffusion.openvino.git
+    dest: /home/image-gen/stable_diffusion.openvino
+    clone: true
+  become_user: 'image-gen'
+  become: true
+
+- name: Create virtual environment
+  ansible.builtin.command:
+    cmd: python3 -m venv test
+    chdir: /home/image-gen/stable_diffusion.openvino
+  register: my_output # <- Registers the command output.
+  changed_when: my_output.rc != 0 # <- Uses the return code to define when the task has changed.
+- name: Install pip in test virtualenv
+  ansible.builtin.pip:
+    name: pip
+    state: latest
+    virtualenv: /home/image-gen/stable_diffusion.openvino/test
+- name: Install openvino-dev[onnx,pytorch] in test env
+  ansible.builtin.pip:
+    name: openvino-dev[onnx,pytorch]==2022.3.0
+    virtualenv: /home/image-gen/stable_diffusion.openvino/test
+- name: Install specified python requirements in indicated test env
+  ansible.builtin.pip:
+    requirements: /home/image-gen/stable_diffusion.openvino/requirements.txt
+    virtualenv: /home/image-gen/stable_diffusion.openvino/test
+- name: Install web gallery # noqa: latest[git]
+  ansible.builtin.git:
+    repo: https://github.com/silvia-odwyer/flashback.git
+    dest: /home/image-gen/gallery-server
+    clone: true
+  become: true
+  become_user: image-gen
+- name: Copy image generation script
+  ansible.builtin.template:
+    src: image-gen-feed.sh
+    dest: "{{ item.dest }}"
+    mode: '0775'
+    owner: "{{ item.user }}"
+    group: "{{ item.group }}"
+  with_items:
+    "{{ img_gen_script_locations }}"
+  tags: script
+- name: Copy gallery-webserver startup script
+  ansible.builtin.template:
+    src: start_webserver.sh
+    dest: /usr/local/bin/
+    mode: '0775'
+    owner: image-gen
+    group: image-gen
+  tags: script
