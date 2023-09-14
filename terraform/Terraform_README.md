@@ -12,8 +12,9 @@ I needed to undertake a few tasks to get this up and running.
 2. Install terraform/set up Promox terraform provider and API token
    - Installing terraform on with homebrew on my mac
    - Setup the API token on my proxmox machine
-   - Create a `Provider.tf` file which details the API terrform uses to connect to proxmox which is calls to the `credentials.auto.tf` files containing the server IP and authentication token
-   - Examples of these files can be found in the terraform folder
+   - Create a `Provider.tf` file which connects your control node to the hypervisor(proxmox) via an API. This file also makes a call to the `credentials.auto.tf` file containing the hypervisor IP and authentication token
+   - Proxmox Provider docs (https://registry.terraform.io/providers/Telmate/proxmox/latest/docs)
+
 
 3. Write a terraform file which details the VM's I want terraform to deploy on Proxmox. These details include:
    - The image I want to be installed on the VM
@@ -31,7 +32,7 @@ Now my workflow is:
   - Run terraform to run this code and provision infrastructure on my server
   - Once deployment of new VM's is finished I can go directly run my Ansible playbooks and configure the machine.
 
-
+Examples of these files can be found in the terraform folder.
 
      
    
