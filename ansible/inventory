@@ -1,0 +1,16 @@
+[stable_diff_machines]
+web-stable-diff ansible_host=192.168.0.14
+stable-diff ansible_host=192.168.0.15
+
+[dns_server]
+dns-01 ansible_host=192.168.0.17
+dns-02 ansible_host=192.168.0.18
+
+[proxmox]
+proxmox ansible_host=192.168.0.19
+
+[blog]
+blog ansible_host=192.168.0.21 
+
+[gitlab_runner]
+gitlab-runner-01 ansible_host=192.168.0.28

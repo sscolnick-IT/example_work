@@ -1,0 +1,32 @@
+custom_packages_installed:
+  - name: 'bash-completion'
+    state: 'latest'
+  - name: 'vim'
+    state: 'latest'
+  - name: 'bzip2'
+    state: latest
+  - name: 'httpd'
+    state: absent
+  - name: 'tar'
+    state: latest
+  - name: 'python3.8-venv'
+    state: latest
+  - name: 'git'
+    state: latest
+  - name: 'npm'
+    state: latest
+  - name: 'python3-pip'
+    state: latest
+  - name: 'screen'
+    state: latest
+
+users_info:
+  - username: 'ansible'
+    shell: /bin/bash
+    pub_key: ***ANSIBLE VAULT SECRET*** # noqa: yaml[line-length]
+  - username: 'chippy'
+    shell: /bin/bash
+    pub_key: ***ANSIBLE VAULT SECRET***
+  - username: 'image-gen'
+    shell: /bin/bash
+    pub_key: ***ANSIBLE VAULT SECRET***
