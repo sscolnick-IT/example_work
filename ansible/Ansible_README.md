@@ -5,9 +5,9 @@ The Ansible folder in this repo contains some of the playbooks/roles I have buil
 
 Roles/playbooks Ive written:
 
-- BIND local DNS server
+- BIND local DNS server 
     - Playbook for creating both primary/slave local DNS server
-    - Automated DNS record updates Via CI/CD pipelines
+    - Automated DNS record updates via CI/CD pipelines
 
 - Stable diffusion AI image generation server - https://github.com/bes-dev/stable_diffusion.openvino
     - Playbook for installing Stable Diffusion and a python environment to run it in 
