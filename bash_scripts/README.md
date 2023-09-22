@@ -1,1 +1,5 @@
-Learning bash scripting was my first jump into learning how to program and code. I enjoyed the way I could automate alot of my day to day system adminitration tasks I will slowly start building out this directory to share some of my most useful scripts that help me manage my linux machines. 
+Learning bash scripting was my first jump into learning how to program and code. I enjoy the ways it allows me to easily automate much of my day to day system administration tasks. 
+
+I will slowly start building out this directory to share some of my most useful scripts that help me manage my linux machines. 
+
+
