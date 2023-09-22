@@ -1,0 +1,1 @@
+Learning bash scripting was my first jump into learning how to program and code. I enjoyed the way I could automate alot of my day to day system adminitration tasks I will slowly start building out this directory to share some of my most useful scripts that help me manage my linux machines. 
