@@ -1,6 +1,6 @@
 Welcome to my Github repo!
 
-Currently working as a IT Support Technician, I enjoy learning about the world of devops and automation. This repo will detail some of my current homelab work with some of the following devops technologies and coding languages: 
+Currently working as a IT Support Technician, I enjoy learning about the world of Linux, devops and automation! Below are some of the topics that I have been working on that im looking to highlight. 
 
 - Ansible
 - Gitlab CI/CD
@@ -8,5 +8,4 @@ Currently working as a IT Support Technician, I enjoy learning about the world o
 - Bash
 - Python
 
-Currently its a bit of a work in progress as I get this caught up to my private repo. 
-
+Each directory contains a README file of why I wrote the code and how it is functioning in my Virtualizaion Homelab.
