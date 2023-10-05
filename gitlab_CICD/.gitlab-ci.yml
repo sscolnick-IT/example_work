@@ -1,0 +1,22 @@
+#This CI/CD pipline will be triggered when there is any changes made to local DNS records pushed to gitlab
+#Gitlab Runner will push code changes to an ansible docker image which will run the dns.yml playbook.
+
+stages:
+  - deploy_dns
+    
+deploy_dns:
+  stage: deploy_dns
+  image: finalgene/ansible:latest
+  before_script:
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(cat "$SSH_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - chmod -v 744 $(pwd)
+  script:
+    - 'ansible-playbook dns.yml -l dns-01'
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "main"'
+      changes:
+        - roles/dns_server/templates/**/* 
