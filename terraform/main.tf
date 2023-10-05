@@ -2,12 +2,12 @@
 # ---
 # Create a new VM from a clone
 
-resource "proxmox_vm_qemu" "stable-diff" {
+resource "proxmox_vm_qemu" "stable-diffusion" {
     
     # VM General Settings
     target_node = "proxmox"
     vmid = "185"
-    name = "stable-diff"
+    name = "stable-diffusion"
     desc = "Image generation machine"
     # VM Advanced General Settings
     onboot = true 
@@ -36,17 +36,6 @@ resource "proxmox_vm_qemu" "stable-diff" {
     ipconfig0 = "ip=192.168.0.85/24,gw=192.168.0.1"
     nameserver = "1.1.1.1" 
 
-    # VM Cloud-Init Settings
-    #os_type = "cloud-init"
-
-    # (Optional) Default User
-    # ciuser = "your-username"
-    
-    # (Optional) Add your SSH KEY
-    # sshkeys = <<EOF
-    # #YOUR-PUBLIC-SSH-KEY
-    # EOF
-}
 
 resource "proxmox_vm_qemu" "web-stable-diff" {
     
